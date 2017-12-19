@@ -12,7 +12,7 @@ then
    fi
    if cd "${username}"
    then
-      mapfile -t links < <(wget --quiet -O - "https://www.instagram.com/${username}/media" | sed -e 's/standard/\n/g' | sed -e 's/"}}.*//g' -e 's/.*"//g'| grep -v status)
+      mapfile -t links < <(wget --quiet -O - "https://www.instagram.com/${username}/?__a=1" | sed -e 's/"code"/\n/g' | grep "display_src"| sed -e 's/.*display_src": "//g' | sed -e 's/".*//g')
       for i in "${links[@]}"
       do
             wget --quiet -nc "${i%%\?*}"
